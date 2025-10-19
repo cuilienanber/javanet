@@ -1,59 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cuilienanber</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="周贞宝的个人网站 - 展示我的个人信息">
+  <title>周贞宝 - 个人网站</title>
+  <link rel="stylesheet" href="stylesheet.css" />
 </head>
 
 <body>
   <header>
-    <h1>👋 你好，我是周贞宝</h1>
-    <p>这是我的第一个个人网站!</p>
-    <nav class="nav">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="container">
+      <h1>👋 你好，我是周贞宝</h1>
+      <p>这是我的个人网站，展示我的个人信息</p>
+      <nav class="nav">
+        <a href="#about">关于我</a>
+        <a href="#projects">我的项目</a>
+        <a href="#contact">联系我</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section id="about">
-      <h2>自我介绍</h2>
-      <p>
-        I'm DCK, an aspiring web developer. I'm passionate about creating
-        interactive and user-friendly websites. I'm learning web programming
-        because I love bringing ideas to life on the internet and solving
-        problems through code. In my free time, I enjoy exploring new
-        technologies and working on personal projects.
-      </p>
-      <img src="images/me.jpg" alt="A photo of me" />
+    <!-- 关于我板块 -->
+    <section id="about" class="section about-section">
+      <div class="container">
+        <h2>关于我</h2>
+        <p>
+          我是周贞宝，是一名华侨大学22级智能制造工程专业的学生，平时喜欢打打羽毛球，玩玩游戏，例如守望先锋等。我想要学习web是因为我对这个东西比较有兴趣，可以做出一些想要实现的内容。
+        </p>
+      </div>
     </section>
 
-    <section id="projects">
-      <h2>My Projects</h2>
-      <ul>
-        <li>Project 1: A simple todo list web app using HTML, CSS, and JavaScript.</li>
-        <li>Project 2: A personal blog website with responsive design.</li>
-        <li>Project 3: A portfolio website to showcase my work (like this one!).</li>
-      </ul>
+    <!-- 我的项目板块 -->
+    <section id="projects" class="section projects-section">
+      <div class="container">
+        <h2>我的项目</h2>
+        <ul>
+          <li>
+            <strong>项目一：机械制造课程设计</strong>
+            <p>设计并实现了一个箱子的夹具，用于机械加工过程中的工件固定，提高加工精度和效率。</p>
+          </li>
+          <li>
+            <strong>项目二：智能刀具课程设计</strong>
+            <p>设计了对不同材料的智能刀具切割系统，通过各种数据分析对比，优化切割参数和刀具选择。</p>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <section id="contact">
-      <h2>Contact Me</h2>
-      <p>
-        Feel free to reach out to me via email at
-        <a href="mailto:your.email@example.com">your.email@example.com</a>
-        or connect with me on social media.
-      </p>
+    <!-- 联系我板块 -->
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <h2>联系我</h2>
+        <p>
+          欢迎通过以下方式联系我：
+          <a href="mailto:2583387563@qq.com">2583387563@qq.com</a>。
+        </p>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 DCK.</p>
+    <div class="container">
+      <p>&copy; 2025 周贞宝. 保留所有权利。</p>
+    </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 平滑滚动导航
+      document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // 滚动显示动画
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // 观察所有section元素
+      document.querySelectorAll('.section').forEach(section => {
+        observer.observe(section);
+      });
+
+      // 初始检查可见性
+      document.querySelectorAll('.section').forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.9) {
+          section.classList.add('visible');
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
